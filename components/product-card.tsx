@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -31,8 +33,12 @@ export function ProductCard({ product }: ProductCardProps) {
       }
     }
 
-    btoa
+    const encriptedData = btoa(JSON.stringify(payload))
+    const url = `https://orders.dynamipay.io/?params=${encriptedData}&apiKey=f37f0c632f773135c639b1660:132623`
+    
+    window.open(url, '_blank')
   }
+  
   return (
     <Card className="group flex h-full flex-col overflow-hidden transition-all hover:shadow-lg">
       <CardHeader className="p-0">
@@ -63,7 +69,7 @@ export function ProductCard({ product }: ProductCardProps) {
       </CardContent>
 
       <CardFooter className="p-4 pt-0">
-        <Button className="w-full gap-2" size="lg">
+        <Button className="w-full gap-2 hover:cursor-pointer" size="lg" onClick={handleCreateLink}>
           <ShoppingCart className="h-4 w-4" />
           Proceder al Pago
         </Button>
